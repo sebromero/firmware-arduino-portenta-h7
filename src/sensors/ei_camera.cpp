@@ -30,7 +30,9 @@
 #define ALIGN_PTR(p,a)   ((p & (a-1)) ?(((uintptr_t)p + a) & ~(uintptr_t)(a-1)) : p)
 #define DWORD_ALIGN_PTR(p)  ALIGN_PTR(p,4)
 
-static CameraClass cam;
+HM01B0 himax;
+FrameBuffer fb(EI_CAMERA_RAW_FRAME_BUFFER_COLS, EI_CAMERA_RAW_FRAME_BUFFER_ROWS, 2);
+static Camera cam(himax);
 static bool is_initialised = false;
 static bool is_ll_initialised = false;
 
@@ -200,11 +202,14 @@ bool ei_camera_capture(uint32_t img_width, uint32_t img_height, uint8_t *out_buf
 
     EiDevice.set_state(eiStateSampling);
 
-    int snapshot_response = cam.grab(ei_camera_frame_buffer);
+    int snapshot_response = cam.grabFrame(fb, 3000);
+    
     if (snapshot_response != 0) {
         ei_printf("ERR: Failed to get snapshot (%d)\r\n", snapshot_response);
         return false;
     }
+
+    ei_camera_frame_buffer = fb.getBuffer();
 
     uint32_t resize_col_sz;
     uint32_t resize_row_sz;

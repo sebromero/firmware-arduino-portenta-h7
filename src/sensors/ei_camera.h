@@ -29,6 +29,7 @@
 #include <math.h>
 #include "mbed.h" // must be included before camera.h
 #include "camera.h"
+#include "himax.h"
 #include "ingestion-sdk-platform/portenta-h7/ei_device_portenta.h"
 #include "edge-impulse-sdk/porting/ei_classifier_porting.h"
 #include "repl/at_base64.h"
