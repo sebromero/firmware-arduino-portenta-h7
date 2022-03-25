@@ -37,7 +37,7 @@ check_dependency()
     $ARDUINO_CLI core update-index
 
     echo "Installing Arduino Mbed core..."
-    $ARDUINO_CLI core install arduino:mbed_portenta@2.8.0
+    $ARDUINO_CLI core install arduino:mbed_portenta@3.0.0
     echo "Installing Arduino Mbed core OK"
 
     #echo "Installing MKRWAN library..."
